@@ -44,6 +44,7 @@ function RunCmd(cmd, args, cb) {
     let result = '';
     child.stdout.on('data', function(data) {
         result += data.toString();
+        console.log(result);
     });
     child.stdout.on('end', function() {
         cb(result)
@@ -56,5 +57,6 @@ handler.on('push', function (event) {
         name,
         event.payload.ref)
     const { path, sh } = keys.find(key => key.name === name)
+    console.log(path, sh);
     RunCmd('sh',[path, sh],(r) => console.log(r))
 })
