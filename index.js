@@ -2,7 +2,7 @@ const http = require('http')
 const createHandler = require('git-webhook-handler')
 const handler = createHandler([
     { path: '/webhook/synapse-bot', secret: 'hzhyang-nb' },
-    { path: '/webhook/git-webhook-node', secret: 'hzhyang-nb'},
+    { path: '/webhook/git-webhook-node', secret: 'hzhyang-nb'}
 ])
 
 const keys = [
