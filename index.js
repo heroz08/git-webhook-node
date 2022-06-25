@@ -56,5 +56,5 @@ handler.on('push', function (event) {
         name,
         event.payload.ref)
     const { path, sh } = keys.find(key => key.name === name)
-    RunCmd('sh',[path, sh])
+    RunCmd('sh',[path, sh],(r) => console.log(r))
 })
