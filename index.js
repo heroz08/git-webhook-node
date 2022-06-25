@@ -52,6 +52,7 @@ function RunCmd(cmd, args, cb) {
 }
 
 handler.on('push', function (event) {
+    console.log(233);
     const name = event.payload.repository.name
     console.log('Received a push event for %s to %s',
         name,
