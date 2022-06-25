@@ -1,12 +1,20 @@
 const http = require('http')
 const createHandler = require('git-webhook-handler')
-const handler = createHandler([{ path: '/webhook/synapse-bot', secret: 'hzhyang-nb' }])
+const handler = createHandler([
+    { path: '/webhook/synapse-bot', secret: 'hzhyang-nb' },
+    { path: '/webhook/git-webhook-node', secret: 'hzhyang-nb'}
+])
 
 const keys = [
     {
-        name: '',
-        path: '',
-        sh: ''
+        name: 'synapse-bot',
+        path: '/home/synapse/synapse-bot',
+        sh: 'update.sh'
+    },
+    {
+        name: 'git-webhook-node',
+        path: '/home/node/git-webhook-node',
+        sh:'update.sh'
     }
 ]
 
@@ -43,10 +51,10 @@ function RunCmd(cmd, args, cb) {
 }
 
 handler.on('push', function (event) {
-    console.log(event);
+    const name = event.payload.repository.name
     console.log('Received a push event for %s to %s',
-        event.payload.repository.name,
+        name,
         event.payload.ref)
-    // RunCmd('cd', [/home/])
-    // RunCmd('sh',[])
+    const { path, sh } = keys.find(key => key.name === name)
+    RunCmd('sh',[path, sh])
 })
